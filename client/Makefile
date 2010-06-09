@@ -21,8 +21,13 @@ install:
 test: unit functional
 
 unit: specloud ludibrio should-dsl
-	specloud specs
+	@echo =======================================
+	@echo  ======== Running SpecLoud ==========
+	@specloud specs
+	@echo
 
 functional: lettuce
-	lettuce
-
+	@echo =======================================
+	@echo  ========= Running Lettuce ==========
+	@lettuce
+	@echo
