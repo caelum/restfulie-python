@@ -10,7 +10,7 @@ class RestfulieSpec(unittest.TestCase):
     def it_should_retrieve_resource_from_entry_point(self):
         uri = 'http://myrestfulpoweredapp.com/coolresource'
         with Stub() as response:
-            response.code = 200
+            response.code >> 200
             response.read() >> 'my restful content'
         with Stub() as urlopen:
             from urllib2 import urlopen
