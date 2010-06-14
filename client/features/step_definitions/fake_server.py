@@ -6,24 +6,17 @@ http://tarekziade.wordpress.com/2010/05/10/faking-a-server-for-client-side-tests
 import threading
 import time
 from wsgiref.simple_server import make_server
-from juno import config, get, content_type, run
+from itty import handle_request, get, Response
 
 
 _SERVER = None
 _HOST, _PORT = 'localhost', 8081
 
-config({'mode': 'wsgi',
-        'use_templates': False,
-        'template_lib': None,
-        'use_static': False,
-        'use_db': False,
-        'log': False})
-
 
 @get('/myresource')
 def myresource(web):
-    content_type('application/xml')
-    return '<item><name>Rich Rock Sunshine</name></item>'
+    return Response('<item><name>Rich Rock Sunshine</name></item>',
+                    content_type='application/xml')
 
 
 class AppRunner(threading.Thread):
@@ -47,8 +40,7 @@ def start_server():
     if _SERVER is not None:
         # we suppose it's running
         return _SERVER.address
-    juno_app = run()
-    _SERVER = AppRunner(juno_app)
+    _SERVER = AppRunner(handle_request)
     _SERVER.start()
     return _SERVER.address
 
