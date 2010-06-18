@@ -3,7 +3,7 @@ export PYTHONPATH
 
 all: deps install test
 
-deps: specloud freshen ludibrio should-dsl
+deps: specloud freshen ludibrio should-dsl lxml
 	@python -c 'import pip' 2> /dev/null || easy_install pip
 
 freshen:
@@ -18,18 +18,21 @@ ludibrio:
 should-dsl:
 	@python -c 'import should_dsl' 2>/dev/null || pip install http://github.com/rodrigomanhaes/should-dsl/tarball/matchers-as-functions
 
+lxml:
+	@python -c 'import lxml' 2>/dev/null || pip install lxml
+
 install:
 	python setup.py install
 
 test: unit functional
 
-unit: specloud ludibrio should-dsl
+unit: specloud ludibrio should-dsl install
 	@echo =======================================
 	@echo  ======== Running SpecLoud ==========
 	@specloud specs
 	@echo
 
-functional: freshen
+functional: freshen install
 	@echo =======================================
 	@echo  ========= Running Freshen ===========
 	@nosetests --with-freshen -v
