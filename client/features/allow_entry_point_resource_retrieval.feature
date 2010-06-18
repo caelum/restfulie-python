@@ -1,3 +1,5 @@
+Using steps: 'step_definitions/entry_point_steps'
+
 Feature: Allow entry point resource retrieval
 
   Scenario: server is available
