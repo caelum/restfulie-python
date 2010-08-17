@@ -1,6 +1,6 @@
 import unittest
 import urllib2
-from ludibrio import Stub
+from ludibrio import Mock, Stub
 from should_dsl import should
 from restfulie import Restfulie
 
@@ -22,7 +22,7 @@ class RestfulieSpec(unittest.TestCase):
 
     def it_should_allow_xml_retrieval_if_content_type_is_xml(self):
         uri = 'http://myrestfulpoweredapp.com/coolresource'
-        with Stub() as response:
+        with Mock() as response:
             response.code >> 200
             response.read() >> '<person><name>No name</name><address>No mail</address></person>'
             response.headers['Content-type'] = 'application/xml'
