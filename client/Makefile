@@ -13,10 +13,10 @@ specloud:
 	@python -c 'import specloud' 2>/dev/null || pip  install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
 
 ludibrio:
-	@python -c 'import ludibrio' 2>/dev/null || pip install http://github.com/nsigustavo/ludibrio/tarball/ludibrio3.0
+	@python -c 'import ludibrio' 2>/dev/null || pip install http://github.com/nsigustavo/ludibrio/tarball/master
 
 should-dsl:
-	@python -c 'import should_dsl' 2>/dev/null || pip install http://github.com/rodrigomanhaes/should-dsl/tarball/matchers-as-functions
+	@python -c 'import should_dsl' 2>/dev/null || pip install http://github.com/hugobr/should-dsl/tarball/master
 
 lxml:
 	@python -c 'import lxml' 2>/dev/null || pip install lxml
