@@ -6,17 +6,30 @@ http://tarekziade.wordpress.com/2010/05/10/faking-a-server-for-client-side-tests
 import threading
 import time
 from wsgiref.simple_server import make_server
-from itty import handle_request, get, Response
+from itty import handle_request, get, post, Response
 
 
 _SERVER = None
 _HOST, _PORT = 'localhost', 8081
 
+content = ""
+content_type = ""
 
 @get('/myresource')
 def myresource(web):
-    return Response('<item><name>Rich Rock Sunshine</name></item>',
-                    content_type='application/xml')
+    return Response(content, content_type)
+
+@post('/set_content')
+def set_content(request):
+    global content
+    content = request.POST.get('content', '')
+    return ""
+
+@post('/set_content_type')
+def set_content_type(request):
+    global content_type
+    content_type = request.POST.get('content_type', '')
+    return ""
 
 
 class AppRunner(threading.Thread):
@@ -52,3 +65,4 @@ def stop_server():
         return
     _SERVER.stop()
     _SERVER = None
+
