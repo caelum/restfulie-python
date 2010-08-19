@@ -35,6 +35,6 @@ unit: specloud ludibrio should-dsl install
 functional: freshen install
 	@echo =======================================
 	@echo  ========= Running Freshen ===========
-	@nosetests --with-freshen -v
+	@nosetests --with-freshen -v features
 	@echo
 
