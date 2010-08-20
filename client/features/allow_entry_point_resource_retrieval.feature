@@ -38,3 +38,17 @@ Feature: Allow entry point resource retrieval
       | application/xml |
       | text/xml        |
 
+
+  Scenario: json retrieval
+    Given there is a resource at "http://localhost:8081/myresource"
+    And the resource content-type is "application/json"
+    And the resource content is
+    """
+      {"item": {
+         "name": "product",
+         "price": "2"}
+      }
+    """
+    When I request this resource
+    Then the resource item name is "product"
+    And the resource item price is "2"

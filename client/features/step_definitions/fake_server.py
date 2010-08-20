@@ -17,7 +17,7 @@ content_type = ""
 
 @get('/myresource')
 def myresource(web):
-    return Response(content, content_type)
+    return Response(content, content_type=content_type)
 
 @post('/set_content')
 def set_content(request):
