@@ -49,5 +49,5 @@ def resource_item_name_is(name):
 
 @Then(r'the resource item price is "(.*)"')
 def resource_item_price_is(price):
-    ftc.resource.item.price |should| equal_to(price)
+    ftc.resource.item.price |should| equal_to(int(price))
 

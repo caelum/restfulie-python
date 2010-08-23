@@ -46,9 +46,10 @@ Feature: Allow entry point resource retrieval
     """
       {"item": {
          "name": "product",
-         "price": "2"}
+         "price": 2}
       }
     """
     When I request this resource
     Then the resource item name is "product"
     And the resource item price is "2"
+

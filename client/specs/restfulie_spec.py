@@ -31,15 +31,23 @@ class RestfulieSpec(unittest.TestCase):
         uri = 'http://myrestfulpoweredapp.com/coolresource'
         with Mock() as response:
             response.code >> 200
-            response.read() >> '<person><name>No name</name><address>No mail</address></person>'
+            response.read() >> """<person>
+                                    <name>Catatau</name>
+                                    <address>
+                                      <city>Campos dos Goytacazes</city>
+                                      <state>Rio de Janeiro</state>
+                                    </address>
+                                  </person>"""
             response.headers >> self._xml_header
         with Stub() as urlopen:
             from urllib2 import urlopen
             urlopen(uri) >> response
 
         resource = Restfulie.at(uri).get()
-        resource.person.name |should| equal_to('No name')
-        resource.person.address |should| equal_to('No mail')
+        resource.person.name |should| equal_to('Catatau')
+        resource.person.address.city |should| equal_to('Campos dos Goytacazes')
+        resource.person.address.state |should| equal_to('Rio de Janeiro')
+
 
     def it_should_allow_json_retrieval_if_content_type_is_application_json(self):
         uri = 'http://myrestfulpoweredapp.com/coolresource'
