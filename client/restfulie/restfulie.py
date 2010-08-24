@@ -35,9 +35,10 @@ class Restfulie(object):
 
     def _is_json_resource(self):
         return self.response.headers.gettype() == 'application/json'
-        
 
+  
 class _dict2obj(object):
+    '''from: http://stackoverflow.com/questions/1305532/convert-python-dict-to-object'''
     def __init__(self, dict_):
         for key, value in dict_.items():
             if isinstance(value, (list, tuple)):
