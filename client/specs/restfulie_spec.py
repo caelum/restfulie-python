@@ -55,7 +55,11 @@ class RestfulieSpec(unittest.TestCase):
             response.code >> 200
             response.read() >> """{"person": {
                                       "name": "No name",
-                                      "address": "No mail"}
+                                      "address": {
+                                            "city": "Campos dos Goytacazes",
+                                            "state": "Rio de Janeiro"
+                                                 }
+                                             }
                                   }"""
             response.headers >> self._json_header
         with Stub() as urlopen:
@@ -64,5 +68,7 @@ class RestfulieSpec(unittest.TestCase):
 
         resource = Restfulie.at(uri).get()
         resource.person.name |should| equal_to('No name')
-        resource.person.address |should| equal_to('No mail')
+        resource.person.address.city |should| equal_to('Campos dos Goytacazes')
+        resource.person.address.state |should| equal_to('Rio de Janeiro')
+
 
