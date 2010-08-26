@@ -2,4 +2,5 @@ build/
 dist/
 restfulie.egg-info/
 *.pyc
+*~
 

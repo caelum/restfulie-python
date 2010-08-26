@@ -1,3 +1,5 @@
+# coding: utf-8
+
 import unittest
 import urllib2
 from ludibrio import Mock, Stub
@@ -35,6 +37,8 @@ class RestfulieSpec(unittest.TestCase):
                                     <name>Catatau</name>
                                     <address>
                                       <city>Campos dos Goytacazes</city>
+                                      <city>Macaé</city>
+                                      <city>Rio das Ostras</city>
                                       <state>Rio de Janeiro</state>
                                     </address>
                                   </person>"""
@@ -45,7 +49,7 @@ class RestfulieSpec(unittest.TestCase):
 
         resource = Restfulie.at(uri).get()
         resource.person.name |should| equal_to('Catatau')
-        resource.person.address.city |should| equal_to('Campos dos Goytacazes')
+        resource.person.address.city |should| equal_to(['Campos dos Goytacazes', u'Macaé', 'Rio das Ostras'])
         resource.person.address.state |should| equal_to('Rio de Janeiro')
 
 
@@ -53,8 +57,8 @@ class RestfulieSpec(unittest.TestCase):
         uri = 'http://myrestfulpoweredapp.com/coolresource'
         with Mock() as response:
             response.code >> 200
-            response.read() >> """{"person": {
-                                      "name": "No name",
+            response.read() >> """{"person":{
+                                      "name": ["Hugo", "Rodrigo", "Rebeca"],
                                       "address": {
                                             "city": "Campos dos Goytacazes",
                                             "state": "Rio de Janeiro"
@@ -67,7 +71,7 @@ class RestfulieSpec(unittest.TestCase):
             urlopen(uri) >> response
 
         resource = Restfulie.at(uri).get()
-        resource.person.name |should| equal_to('No name')
+        resource.person.name |should| equal_to(['Hugo', 'Rodrigo', 'Rebeca'])
         resource.person.address.city |should| equal_to('Campos dos Goytacazes')
         resource.person.address.state |should| equal_to('Rio de Janeiro')
 
