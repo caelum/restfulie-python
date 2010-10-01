@@ -7,7 +7,7 @@ from should_dsl import should
 from restfulie import Restfulie
 
 
-class RestfulieSpec(unittest.TestCase):
+class EntryPointRetrievalSpec(unittest.TestCase):
 
     def setUp(self):
         with Stub() as self._xml_header:
@@ -74,5 +74,4 @@ class RestfulieSpec(unittest.TestCase):
         resource.person.name |should| equal_to(['Hugo', 'Rodrigo', 'Rebeca'])
         resource.person.address.city |should| equal_to('Campos dos Goytacazes')
         resource.person.address.state |should| equal_to('Rio de Janeiro')
-
 
