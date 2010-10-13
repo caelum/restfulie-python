@@ -3,7 +3,6 @@ from urllib import urlencode
 from lxml import objectify
 import json
 
-
 class Restfulie(object):
 
     @classmethod
@@ -29,6 +28,7 @@ class Restfulie(object):
             setattr(result, xml.tag, MultipleChildrenElement(xml))
             return result
         else:
+#            raise Exception(self.response.body)
             _json = json.loads(self.response.body)
             return _dict2obj(_json)
 

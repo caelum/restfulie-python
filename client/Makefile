@@ -3,11 +3,11 @@ export PYTHONPATH
 
 all: deps install test
 
-deps: specloud freshen ludibrio should-dsl lxml
+deps: specloud lettuce ludibrio should-dsl lxml
 	@python -c 'import pip' 2> /dev/null || easy_install pip
 
-freshen:
-	@python -c 'import freshen' 2>/dev/null || pip install freshen
+lettuce:
+	@python -c 'import lettuce' 2>/dev/null || pip install lettuce
 
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip  install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
@@ -32,9 +32,9 @@ unit: specloud ludibrio should-dsl install
 	@specloud specs
 	@echo
 
-functional: freshen install
+functional: lettuce install
 	@echo =======================================
-	@echo  ========= Running Freshen ===========
-	@nosetests --with-freshen -v features
+	@echo  ========= Running Lettuce ===========
+	@lettuce
 	@echo
 
