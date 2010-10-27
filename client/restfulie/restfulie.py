@@ -22,9 +22,9 @@ class Restfulie(object):
         if self._is_raw:
             return self
         if self._is_xml_resource():
-            __Result = type('object', (object,), {})
+            BlankSlate = type('object', (object,), {})
+            result = BlankSlate()
             xml = objectify.fromstring(self.response.body)
-            result = __Result()
             child_tag = xml.iterchildren().next().tag
             setattr(result, xml.tag, getattr(xml, child_tag))
             return result
