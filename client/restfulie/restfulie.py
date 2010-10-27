@@ -25,10 +25,10 @@ class Restfulie(object):
             __Result = type('object', (object,), {})
             xml = objectify.fromstring(self.response.body)
             result = __Result()
-            setattr(result, xml.tag, MultipleChildrenElement(xml))
+            child_tag = xml.iterchildren().next().tag
+            setattr(result, xml.tag, getattr(xml, child_tag))
             return result
         else:
-#            raise Exception(self.response.body)
             _json = json.loads(self.response.body)
             return _dict2obj(_json)
 
@@ -62,22 +62,4 @@ class _Response(object):
         self.code = response.code
         self.body = response.read()
         self.headers = response.headers
-
-
-class MultipleChildrenElement(object):
-
-    def __init__(self, element):
-        self.element = element
-
-    def __getattr__(self, tag):
-        tags = self.element.findall(tag)
-        if len(tags) > 1:
-            return [self.wrap(x) for x in tags]
-        else:
-            return self.wrap(getattr(self.element, tag))
-
-    def wrap(self, element):
-        if element.countchildren():
-            return MultipleChildrenElement(element)
-        return element
 

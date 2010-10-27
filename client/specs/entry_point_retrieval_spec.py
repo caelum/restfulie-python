@@ -31,27 +31,28 @@ class EntryPointRetrievalSpec(unittest.TestCase):
 
     def it_should_allow_xml_retrieval_if_content_type_is_xml(self):
         uri = 'http://myrestfulpoweredapp.com/coolresource'
-        with Mock() as response:
+        with Stub() as response:
             response.code >> 200
-            response.read() >> """<person>
-                                    <name>Catatau</name>
-                                    <address>
-                                      <city>Campos dos Goytacazes</city>
-                                      <city>Macaé</city>
-                                      <city>Rio das Ostras</city>
-                                      <state>Rio de Janeiro</state>
-                                    </address>
-                                  </person>"""
+            response.read() >> """<people>
+                                    <person>
+                                      <name>Linus</name>
+                                      <software>Linux</software>
+                                    </person>
+                                    <person>
+                                      <name>Guido</name>
+                                      <software>Python</software>
+                                    </person>
+                                  </people>"""
             response.headers >> self._xml_header
         with Stub() as urlopen:
             from urllib2 import urlopen
             urlopen(uri) >> response
 
         resource = Restfulie.at(uri).get()
-        resource.person.name |should| equal_to('Catatau')
-        resource.person.address.city |should| equal_to(['Campos dos Goytacazes', u'Macaé', 'Rio das Ostras'])
-        resource.person.address.state |should| equal_to('Rio de Janeiro')
-
+        resource.people[0].name |should| equal_to('Linus')
+        resource.people[0].software |should| equal_to('Linux')
+        resource.people[1].name |should| equal_to('Guido')
+        resource.people[1].software |should| equal_to('Python')
 
     def it_should_allow_json_retrieval_if_content_type_is_application_json(self):
         uri = 'http://myrestfulpoweredapp.com/coolresource'

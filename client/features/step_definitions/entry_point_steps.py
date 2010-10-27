@@ -34,6 +34,14 @@ def then_check_status_code(step, code):
 def and_the_response_body_is(step, content):
     world.resource.response.body |should| equal_to(content)
 
+@step(r'Then the resource \#([0-9]+) item name is "(.*)"')
+def resource_item_name_is(step, index, name):
+    world.resource.items[int(index) - 1].name |should| equal_to(name)
+
+@step(r'And the resource \#([0-9]+) item price is "(.*)"')
+def resource_item_price_is(step, index, price):
+    world.resource.items[int(index) - 1].price |should| equal_to(int(price))
+
 @step(r'Then the resource item name is "(.*)"')
 def resource_item_name_is(step, name):
     world.resource.item.name |should| equal_to(name)
