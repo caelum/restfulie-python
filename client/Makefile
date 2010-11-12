@@ -1,28 +1,36 @@
+PYTHON=python
+EASY_INSTALL=easy_install
+PIP=pip
 PYTHONPATH := ${PYTHONPATH}:./features/step_definitions
 export PYTHONPATH
 
-all: deps install test
+all: easy_install pip deps install test
+
+easy_install:
+	if ! [ -e "ez_setup.py" ]; then	 wget http://peak.telecommunity.com/dist/ez_setup.py;	$(PYTHON) setup.py install ;fi
+
+pip:
+	@$(PYTHON) -c 'import pip' 2> /dev/null || $(EASY_INSTALL) pip
 
 deps: specloud lettuce ludibrio should-dsl lxml
-	@python -c 'import pip' 2> /dev/null || easy_install pip
 
 lettuce:
-	@python -c 'import lettuce' 2>/dev/null || pip install lettuce
+	@$(PYTHON) -c 'import lettuce' 2>/dev/null || $(PIP) install lettuce
 
 specloud:
-	@python -c 'import specloud' 2>/dev/null || pip  install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
+	@$(PYTHON) -c 'import specloud' 2>/dev/null || $(PIP) install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
 
 ludibrio:
-	@python -c 'import ludibrio' 2>/dev/null || pip install http://github.com/nsigustavo/ludibrio/tarball/master
+	@$(PYTHON) -c 'import ludibrio' 2>/dev/null || $(PIP) install http://github.com/nsigustavo/ludibrio/tarball/master
 
 should-dsl:
-	@python -c 'import should_dsl' 2>/dev/null || pip install http://github.com/hugobr/should-dsl/tarball/master
+	@$(PYTHON) -c 'import should_dsl' 2>/dev/null || $(PIP) install http://github.com/hugobr/should-dsl/tarball/master
 
 lxml:
-	@python -c 'import lxml' 2>/dev/null || pip install lxml
+	@$(PYTHON) -c 'import lxml' 2>/dev/null || $(PIP) install lxml
 
 install:
-	python setup.py install
+	$(PYTHON) setup.py install
 
 test: unit functional
 
