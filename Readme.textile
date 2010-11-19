@@ -6,6 +6,9 @@ Meanwhile visit "Restfulie's website":http://restfulie.caelumobjects.com
 
 h1. How to install
 
+Run the build.sh script
+This scripts needs root permissions to install lxml dependencies in your system.
+
 h2. A simple get
 
 h2. A simple post
