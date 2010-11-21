@@ -1,3 +1,3 @@
-bash system_dependencies.sh
 cd client
+bash lxml_dependencies.sh
 make
