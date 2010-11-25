@@ -17,7 +17,7 @@ h1. How to contribute
 
 The Restfulie python is an open source project. To contribute, just fork the "central repository":http://github.com/caelum/restfulie-python, make your changes and send a pull request(please, send a expressive message.)
 
-The pricinpal issues to resolve in "restfulie python are in here":http://restfulie.lighthouseapp.com/projects/53571-restfulie-python
+The principal issues to resolve in "restfulie python are in here":http://restfulie.lighthouseapp.com/projects/53571-restfulie-python
 
 h2. License
 
