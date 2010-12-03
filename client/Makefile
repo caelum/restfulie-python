@@ -27,7 +27,7 @@ should-dsl:
 	@$(PYTHON) -c 'import should_dsl' 2>/dev/null || $(PIP) install http://github.com/hugobr/should-dsl/tarball/master
 
 lxml:
-	@$(PYTHON) -c 'import lxml' 2>/dev/null || $(PIP) install lxml
+	@$(PYTHON) -c 'import lxml' 2>/dev/null || $(PIP) install lxml && sudo apt-get install libxml2 libxslt1.1 libxslt-dev
 
 install:
 	$(PYTHON) setup.py install
