@@ -5,8 +5,6 @@ http://tarekziade.wordpress.com/2010/05/10/faking-a-server-for-client-side-tests
 
 from multiprocessing import Process
 import urllib
-import time
-from wsgiref.simple_server import make_server
 from flask import Flask, request, make_response
 
 app = Flask(__name__)
