@@ -41,7 +41,7 @@ def set_content_type():
 
 def start_flask_app(host, port):
     """Runs the server."""
-    app.run(host = '127.0.0.1', port = 8081)
+    app.run(host = host, port = port)
     app.config['DEBUG'] = False
     app.config['TESTING'] = False
 
@@ -64,7 +64,7 @@ def wait_until_stop():
 
 def start_server():
     global _PROCESS, _SERVER, _PORT
-    _PROCESS = Process(target=start_flask_app, args=(_SERVER, _PORT))
+    _PROCESS = Process(target=start_flask_app, args=(_HOST, _PORT))
     _PROCESS.daemon = True
     _PROCESS.start()
     wait_until_start()
