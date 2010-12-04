@@ -2,7 +2,6 @@
 
 import unittest
 import urllib2
-from simplejson import dumps
 from ludibrio import Mock, Stub, Dummy
 from should_dsl import should
 from restfulie import Restfulie
