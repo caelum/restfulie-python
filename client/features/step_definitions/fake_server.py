@@ -1,8 +1,3 @@
-"""
-adapted AppRunner thread stuff from:
-http://tarekziade.wordpress.com/2010/05/10/faking-a-server-for-client-side-tests/
-"""
-
 from multiprocessing import Process
 import urllib
 import time
