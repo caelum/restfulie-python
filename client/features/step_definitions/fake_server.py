@@ -4,7 +4,7 @@ http://tarekziade.wordpress.com/2010/05/10/faking-a-server-for-client-side-tests
 """
 
 from multiprocessing import Process
-import urllib
+from urllib import urlopen
 from flask import Flask, request, make_response
 
 app = Flask(__name__)
@@ -45,7 +45,7 @@ def start_flask_app(host, port):
 def wait_until_start():
     while True:
         try:
-            urllib.urlopen('http://%s:%s' % (_HOST, _PORT))
+            urlopen('http://%s:%s' % (_HOST, _PORT))
             break
         except IOError:
             pass
@@ -53,7 +53,7 @@ def wait_until_start():
 def wait_until_stop():
     while True:
         try:
-            result = urllib.urlopen('http://%s:%s' % (_HOST, _PORT))
+            result = urlopen('http://%s:%s' % (_HOST, _PORT))
             if result.code == 404:
                 break
         except IOError:
