@@ -13,7 +13,6 @@ app = Flask(__name__)
 
 
 _PROCESS = None
-_SERVER = None
 _HOST, _PORT = 'localhost', 8081
 
 content = ""
@@ -63,7 +62,7 @@ def wait_until_stop():
             break
 
 def start_server():
-    global _PROCESS, _SERVER, _PORT
+    global _PROCESS, _PORT
     _PROCESS = Process(target=start_flask_app, args=(_HOST, _PORT))
     _PROCESS.daemon = True
     _PROCESS.start()
