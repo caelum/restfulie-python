@@ -21,7 +21,7 @@ class Restfulie(object):
         self.response = _Response(urlopen(self.uri))
         if self._is_raw:
             return self
-        if self._is_xml_resource():
+        elif self._is_xml_resource():
             BlankSlate = type('object', (object,), {})
             result = BlankSlate()
             xml = objectify.fromstring(self.response.body)
