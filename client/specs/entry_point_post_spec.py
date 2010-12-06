@@ -22,3 +22,17 @@ class EntryPointPostSpec(unittest.TestCase):
         urlencode.validate()
         urlopen.validate()
 
+    def it_should_allow_posting_as_json(self):
+        uri = 'http://coolresource/post-here'
+        content = {"just":"testing"}
+        encoded_content = Dummy()
+        with Mock() as dumps:
+            from json import dumps
+            dumps(content) >> encoded_content
+        with Mock() as urlopen:
+            from urllib2 import urlopen
+            urlopen(uri, encoded_content)
+        Restfulie.at(uri).as_('application/json').post(content)
+        urlopen.validate()
+        dumps.validate()
+

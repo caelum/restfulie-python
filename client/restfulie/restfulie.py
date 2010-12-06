@@ -21,7 +21,7 @@ class Restfulie(object):
         self.response = _Response(urlopen(self.uri))
         if self._is_raw:
             return self
-        if self._is_xml_resource():
+        elif self._is_xml_resource():
             BlankSlate = type('object', (object,), {})
             result = BlankSlate()
             xml = objectify.fromstring(self.response.body)
@@ -39,10 +39,14 @@ class Restfulie(object):
         return self.response.headers.gettype() == 'application/json'
 
     def as_(self, content_type):
+        self._content_type = content_type
         return self
 
     def post(self, content):
-        encoded_content = urlencode({'content': content})
+        if self._content_type == 'application/json':
+            encoded_content = urlencode({'content':json.dumps(content)})
+        else:
+            encoded_content = urlencode({'content': content})
         urlopen(self.uri, encoded_content)
 
 
