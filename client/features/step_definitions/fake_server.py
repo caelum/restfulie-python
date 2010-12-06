@@ -28,7 +28,13 @@ def myresource():
 def set_content():
     global content
     content = request.form.get('content')
-    return ""
+    if 'redirect_to' in content:
+        url_to_go = content.split()[1]
+        response = make_response(content, 201)
+        response.headers['Location'] = url_to_go
+    else:
+        response = make_response(content)
+    return response
 
 @app.route('/set_content_type', methods=['POST',])
 def set_content_type():
