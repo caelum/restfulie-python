@@ -26,7 +26,7 @@ def when_i_request_this_resource_as_raw(step):
 def when_i_request_this_resource(step):
     world.resource = Restfulie.at(world.uri).get()
 
-@step(r'Then the response code is "(\d+)"')
+@step(r'[And|Then] the response code is "(\d+)"')
 def then_check_status_code(step, code):
     world.resource.response.code |should| equal_to(int(code))
 
