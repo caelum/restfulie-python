@@ -30,7 +30,7 @@ def when_i_request_this_resource(step):
 def then_check_status_code(step, code):
     world.resource.response.code |should| equal_to(int(code))
 
-@step(r'[And|Then] the response body is "(.*)"')
+@step(r'[And|Then] the response body is "(.*)"$')
 def and_the_response_body_is(step, content):
     world.resource.response.body |should| equal_to(content)
 
