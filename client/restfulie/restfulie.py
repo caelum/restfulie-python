@@ -1,7 +1,9 @@
 from urllib2 import Request, urlopen
 from urllib import urlencode
+from StringIO import StringIO
 from lxml import objectify
 import json
+from converters import dict2xml
 
 class Restfulie(object):
 
@@ -46,7 +48,7 @@ class Restfulie(object):
         if self._content_type == 'application/json':
             encoded_content = urlencode({'content':json.dumps(content)})
         else:
-            encoded_content = urlencode({'content': content})
+            encoded_content = urlencode({'content': dict2xml(content)})
         urlopen(self.uri, encoded_content)
 
 

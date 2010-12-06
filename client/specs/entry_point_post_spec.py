@@ -8,23 +8,23 @@ from restfulie import Restfulie
 
 
 class EntryPointPostSpec(unittest.TestCase):
+
     def it_should_allow_posting_as_xml(self):
         uri = 'http://coolresource/post-here'
-        content = 'some content'
+        content = {'item': {'name': 'something'}}
         encoded_content = Dummy()
-        with Mock() as urlencode:
+        with Stub() as urlencode:
             from urllib import urlencode
-            urlencode({'content': content}) >> encoded_content
+            urlencode({'content': "<item><name>something</name></item>"}) >> encoded_content
         with Mock() as urlopen:
             from urllib2 import urlopen
             urlopen(uri, encoded_content)
         Restfulie.at(uri).as_('application/xml').post(content)
-        urlencode.validate()
         urlopen.validate()
 
     def it_should_allow_posting_as_json(self):
         uri = 'http://coolresource/post-here'
-        content = {"just":"testing"}
+        content = {"just": "testing"}
         encoded_content = Dummy()
         with Mock() as dumps:
             from json import dumps
