@@ -12,7 +12,7 @@ easy_install:
 pip:
 	@$(PYTHON) -c 'import pip' 2> /dev/null || $(EASY_INSTALL) pip
 
-deps: specloud lettuce ludibrio should-dsl lxml
+deps: specloud lettuce ludibrio should-dsl lxml flask
 
 lettuce:
 	@$(PYTHON) -c 'import lettuce' 2>/dev/null || $(PIP) install lettuce
@@ -25,6 +25,9 @@ ludibrio:
 
 should-dsl:
 	@$(PYTHON) -c 'import should_dsl' 2>/dev/null || $(PIP) install http://github.com/hugobr/should-dsl/tarball/master
+
+flask:
+	@$(PYTHON) -c 'import flask' 2>/dev/null || $(PIP) install flask
 
 lxml:
 	@$(PYTHON) -c 'import lxml' 2>/dev/null || $(PIP) install lxml && sudo apt-get install libxml2 libxslt1.1 libxslt-dev
