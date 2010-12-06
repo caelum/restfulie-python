@@ -8,7 +8,7 @@ Feature: Entry point post
 
   Scenario: post as application/json
     Given there is an URL accepting posts at "http://localhost:8081/set_content"
-    When I post "{'content':'some content'}" as "application/json"
+    When I post a dict containing "{'content':'some content'}" as "application/json"
     And I request the resource at "http://localhost:8081/myresource" as raw
-    Then the response body is ""{'content':'some content'}""
+    Then the response body is "{'content':'some content'}" as json
 
