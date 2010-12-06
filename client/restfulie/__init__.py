@@ -1,3 +1,3 @@
 from restfulie import Restfulie
-from converters import dict2xml
+from converters import ConverterRegistry, XMLConverter
 
