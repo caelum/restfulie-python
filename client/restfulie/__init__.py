@@ -1,3 +1,3 @@
 from restfulie import Restfulie
-from converters import ConverterRegistry, XMLConverter
+from converters import ConverterRegistry, XMLConverter, JSONConverter
 
