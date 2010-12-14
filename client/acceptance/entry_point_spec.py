@@ -1,10 +1,9 @@
 import unittest
-import urllib
 from should_dsl import should
-from fake_server import start_server, stop_server
 from restfulie import Restfulie
+from acceptance_case import RestfulieAcceptanceCase
 
-class EntryPoint(unittest.TestCase):
+class EntryPoint(RestfulieAcceptanceCase):
 
     def it_gets_raw_data_from_an_entry_point(self):
         uri = 'http://localhost:8081/myresource'
@@ -45,17 +44,4 @@ class EntryPoint(unittest.TestCase):
         resource = Restfulie.at(uri).get()
         resource.item.name |should| equal_to('product')
         resource.item.price |should| be(2)
-
-    def setUp(self):
-        start_server()
-
-    def tearDown(self):
-        stop_server()
-
-    def server_content(self, content, content_type=None):
-        data = urllib.urlencode({'content': content})
-        urllib.urlopen('http://localhost:8081/set_content', data)
-        if content_type:
-            data = urllib.urlencode({'content_type': content_type})
-            urllib.urlopen('http://localhost:8081/set_content_type', data)
 
