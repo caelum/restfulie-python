@@ -37,6 +37,15 @@ class EntryPoint(unittest.TestCase):
             resource.items[1].name |should| equal_to('another product')
             resource.items[1].price |should| be(5)
 
+    def it_retrieves_content_as_json(self):
+        uri = 'http://localhost:8081/myresource'
+        content = '''{"item": {"name": "product", "price": 2}}'''
+        self.server_content(content, 'application/json')
+
+        resource = Restfulie.at(uri).get()
+        resource.item.name |should| equal_to('product')
+        resource.item.price |should| be(2)
+
     def setUp(self):
         start_server()
 
