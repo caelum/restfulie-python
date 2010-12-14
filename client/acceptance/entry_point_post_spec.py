@@ -14,3 +14,10 @@ class EntryPointPost(RestfulieAcceptanceCase):
         raw.response.body |should| equal_to(
             "<item><description>Black Lantern's t-shirt</description></item>")
 
+    def it_posts_as_json(self):
+        uri = 'http://localhost:8081/set_content'
+        Restfulie.at(uri).as_('application/json').post({'some': 'content'})
+
+        raw = Restfulie.at('http://localhost:8081/myresource').raw().get()
+        raw.response.body |should| equal_to('{"some": "content"}')
+
