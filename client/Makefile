@@ -1,6 +1,5 @@
 PYTHON=python
 PIP=pip
-PYTHONPATH := ${PYTHONPATH}:./features/step_definitions
 export PYTHONPATH
 
 all: deps install test
