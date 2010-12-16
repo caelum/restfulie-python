@@ -28,14 +28,14 @@ install:
 test: unit functional
 
 unit: specloud ludibrio should-dsl install
-	@echo ========================================
-	@echo  ======== Running unit specs ==========
+	@echo ======================================
+	@echo ======== Running unit specs ==========
 	@specloud specs
 	@echo
 
 functional: specloud should-dsl install
-	@echo ================================================
-	@echo  ========= Running acceptance specs ===========
+	@echo ==============================================
+	@echo ========= Running acceptance specs ===========
 	@specloud acceptance
 	@echo
 
