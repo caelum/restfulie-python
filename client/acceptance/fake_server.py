@@ -43,7 +43,7 @@ def set_post_response():
 
 def start_flask_app(host, port):
     """Runs the server."""
-    app.run(host = host, port = port)
+    app.run(host=host, port=port)
     app.config['DEBUG'] = False
     app.config['TESTING'] = False
 
