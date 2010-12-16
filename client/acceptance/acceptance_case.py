@@ -10,14 +10,14 @@ class RestfulieAcceptanceCase(unittest.TestCase):
     def tearDown(self):
         stop_server()
 
-    def server_content(self, content, content_type=None):
+    def set_server_content(self, content, content_type=None):
         data = urllib.urlencode({'content': content})
         urllib.urlopen('http://localhost:8081/set_content', data)
         if content_type:
             data = urllib.urlencode({'content_type': content_type})
             urllib.urlopen('http://localhost:8081/set_content_type', data)
 
-    def server_post_response(self, code, location):
+    def set_server_post_response(self, code, location):
         data = urllib.urlencode({'code': code, 'location': location})
-        print urllib.urlopen('http://localhost:8081/set_post_response', data).code
+        urllib.urlopen('http://localhost:8081/set_post_response', data)
 

@@ -8,7 +8,7 @@ class EntryPoint(RestfulieAcceptanceCase):
     def it_gets_raw_data_from_an_entry_point(self):
         uri = 'http://localhost:8081/myresource'
         content = "<item><name>Rich Rock Sunshine</name></item>"
-        self.server_content(content)
+        self.set_server_content(content)
 
         resource = Restfulie.at(uri).raw().get()
         resource.response.code |should| be(200)
@@ -28,7 +28,7 @@ class EntryPoint(RestfulieAcceptanceCase):
                     </items>'''
 
         for content_type in ('application/xml', 'text/xml'):
-            self.server_content(content, content_type)
+            self.set_server_content(content, content_type)
 
             resource = Restfulie.at(uri).get()
             resource.items[0].name |should| equal_to('product')
@@ -39,7 +39,7 @@ class EntryPoint(RestfulieAcceptanceCase):
     def it_retrieves_content_as_json(self):
         uri = 'http://localhost:8081/myresource'
         content = '''{"item": {"name": "product", "price": 2}}'''
-        self.server_content(content, 'application/json')
+        self.set_server_content(content, 'application/json')
 
         resource = Restfulie.at(uri).get()
         resource.item.name |should| equal_to('product')
