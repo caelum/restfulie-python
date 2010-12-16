@@ -5,45 +5,40 @@ from flask import Flask, request, make_response
 app = Flask(__name__)
 
 
-_PROCESS = None
-_HOST, _PORT = 'localhost', 8081
+class Env(object):
+    pass
+env = Env()
+env.content_type = ''
+env.process = None
+env.host, env.port = 'localhost', 8081
 
-content = ""
-content_type = ""
-post_response_code = None
-post_response_location = None
 
 @app.route('/myresource', methods=['GET',])
 def myresource():
-    global content
-    global content_type
-    response = make_response(content)
-    response.headers['Content-Type'] = content_type
+    response = make_response(env.content)
+    response.headers['Content-Type'] = env.content_type
     return response
 
 @app.route('/set_content', methods=['POST',])
 def set_content():
-    global content
-    content = request.form.get('content')
+    env.content = request.form.get('content')
     return ""
 
 @app.route('/post_here', methods=['POST',])
 def post_here():
-    response = make_response(content, post_response_code)
-    response.headers['Location'] = post_response_location
+    response = make_response(env.content, env.post_response_code)
+    response.headers['Location'] = env.post_response_location
     return response
 
 @app.route('/set_content_type', methods=['POST',])
 def set_content_type():
-    global content_type
-    content_type = request.form.get('content_type')
+    env.content_type = request.form.get('content_type')
     return ""
 
 @app.route('/set_post_response', methods=['POST',])
 def set_post_response():
-    global post_response_location, post_response_code
-    post_response_location = request.form.get('location')
-    post_response_code = int(request.form.get('code'))
+    env.post_response_location = request.form.get('location')
+    env.post_response_code = int(request.form.get('code'))
     return ""
 
 def start_flask_app(host, port):
@@ -55,7 +50,7 @@ def start_flask_app(host, port):
 def wait_until_start():
     while True:
         try:
-            urlopen('http://%s:%s' % (_HOST, _PORT))
+            urlopen('http://%s:%s' % (env.host, env.port))
             break
         except IOError:
             pass
@@ -63,21 +58,19 @@ def wait_until_start():
 def wait_until_stop():
     while True:
         try:
-            result = urlopen('http://%s:%s' % (_HOST, _PORT))
+            result = urlopen('http://%s:%s' % (env.host, env.port))
             if result.code == 404:
                 break
         except IOError:
             break
 
 def start_server():
-    global _PROCESS, _PORT
-    _PROCESS = Process(target=start_flask_app, args=(_HOST, _PORT))
-    _PROCESS.daemon = True
-    _PROCESS.start()
+    env.process = Process(target=start_flask_app, args=(env.host, env.port))
+    env.process.daemon = True
+    env.process.start()
     wait_until_start()
 
 def stop_server():
-    global _PROCESS
-    _PROCESS.terminate()
+    env.process.terminate()
     wait_until_stop()
 
