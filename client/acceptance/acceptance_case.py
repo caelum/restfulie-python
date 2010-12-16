@@ -3,6 +3,11 @@ import urllib
 from fake_server import start_server, stop_server
 
 class RestfulieAcceptanceCase(unittest.TestCase):
+    '''For info about URIs below, please see fake_server.py'''
+
+    set_content_uri = 'http://localhost:8081/set_content'
+    content_uri = 'http://localhost:8081/myresource'
+    post_uri = 'http://localhost:8081/post_here'
 
     def setUp(self):
         start_server()
