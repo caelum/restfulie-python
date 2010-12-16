@@ -34,7 +34,12 @@ class Restfulie(object):
         encoded_content = urlencode({'content':
             ConverterRegistry.marshaller_for(self._content_type).\
                 marshal(content)})
-        urlopen(self.uri, encoded_content)
+        response = urlopen(self.uri, encoded_content)
+        print response.code
+        if response.code == 201: # created
+            location = response.headers.getheaders('Location')[0]
+            print location
+            return Restfulie.at(location).get()
 
 
 class _Response(object):

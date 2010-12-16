@@ -10,6 +10,8 @@ _HOST, _PORT = 'localhost', 8081
 
 content = ""
 content_type = ""
+post_response_code = None
+post_response_location = None
 
 @app.route('/myresource', methods=['GET',])
 def myresource():
@@ -23,18 +25,25 @@ def myresource():
 def set_content():
     global content
     content = request.form.get('content')
-    if 'redirect_to' in content:
-        url_to_go = content.split()[1]
-        response = make_response(content, 201)
-        response.headers['Location'] = url_to_go
-    else:
-        response = make_response(content)
+    return ""
+
+@app.route('/post_here', methods=['POST',])
+def post_here():
+    response = make_response(content, post_response_code)
+    response.headers['Location'] = post_response_location
     return response
 
 @app.route('/set_content_type', methods=['POST',])
 def set_content_type():
     global content_type
     content_type = request.form.get('content_type')
+    return ""
+
+@app.route('/set_post_response', methods=['POST',])
+def set_post_response():
+    global post_response_location, post_response_code
+    post_response_location = request.form.get('location')
+    post_response_code = int(request.form.get('code'))
     return ""
 
 def start_flask_app(host, port):

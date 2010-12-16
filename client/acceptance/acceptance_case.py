@@ -17,3 +17,7 @@ class RestfulieAcceptanceCase(unittest.TestCase):
             data = urllib.urlencode({'content_type': content_type})
             urllib.urlopen('http://localhost:8081/set_content_type', data)
 
+    def server_post_response(self, code, location):
+        data = urllib.urlencode({'code': code, 'location': location})
+        print urllib.urlopen('http://localhost:8081/set_post_response', data).code
+

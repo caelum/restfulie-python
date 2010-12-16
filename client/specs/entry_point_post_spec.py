@@ -16,9 +16,11 @@ class EntryPointPostSpec(unittest.TestCase):
         with Stub() as urlencode:
             from urllib import urlencode
             urlencode({'content': "<item><name>something</name></item>"}) >> encoded_content
+        with Stub() as response:
+            response.code >> 200
         with Mock() as urlopen:
             from urllib2 import urlopen
-            urlopen(uri, encoded_content)
+            urlopen(uri, encoded_content) >> response
         Restfulie.at(uri).as_('application/xml').post(content)
         urlopen.validate()
 
@@ -29,9 +31,11 @@ class EntryPointPostSpec(unittest.TestCase):
         with Mock() as dumps:
             from json import dumps
             dumps(content) >> encoded_content
+        with Stub() as response:
+            response.code >> 200
         with Mock() as urlopen:
             from urllib2 import urlopen
-            urlopen(uri, encoded_content)
+            urlopen(uri, encoded_content) >> response
         Restfulie.at(uri).as_('application/json').post(content)
         urlopen.validate()
         dumps.validate()
