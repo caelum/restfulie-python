@@ -37,7 +37,6 @@ class Restfulie(object):
         response = urlopen(self.uri, encoded_content)
         if response.code == 201: # created
             location = response.headers.getheaders('Location')[0]
-            print location
             return Restfulie.at(location).get()
 
 
